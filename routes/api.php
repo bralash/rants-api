@@ -48,6 +48,8 @@ Route::prefix('v1')->group(function () {
 // Sample URL
 Route::group([
     'domain' => env('APP_URL')], function() {
-        Route::get('team-members', [TeamMemberController::class, 'index']);
+        Route::get('team-members', function() {
+            return 'Hello World';
+        });
     }
 );
