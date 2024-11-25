@@ -43,13 +43,14 @@ Route::prefix('v1')->group(function () {
             Route::get('team-members/{teamMember}', [TeamMemberController::class, 'show']);
         });
     });
+
+    Route::group([
+        'domain' => env('APP_URL')], function() {
+            Route::get('greetings', function() {
+                return 'Hello World';
+            });
+        }
+    );    
 });
 
 // Sample URL
-Route::group([
-    'domain' => env('APP_URL')], function() {
-        Route::get('team-members', function() {
-            return 'Hello World';
-        });
-    }
-);
