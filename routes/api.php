@@ -18,11 +18,11 @@ use App\Http\Controllers\Api\V1\ApiAuthController;
 
 Route::prefix('v1')->group(function () {
     // Public routes
-    Route::post('register', [ApiAuthController::class, 'register']);
-    Route::post('login', [ApiAuthController::class, 'login']);
+    Route::post('register', [ApiAuthController::class, 'register'])->middleware('throttle:public');
+    Route::post('login', [ApiAuthController::class, 'login'])->middleware('throttle:login');
 
     // Protected routes
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
         Route::post('logout', [ApiAuthController::class, 'logout']);
 
         // Admin only routes
