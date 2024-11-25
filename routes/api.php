@@ -43,10 +43,11 @@ Route::prefix('v1')->group(function () {
             Route::get('team-members/{teamMember}', [TeamMemberController::class, 'show']);
         });
     });
-
-    Route::domain('api.rantsnconfess.com')->group(function () {
-        Route::get('/greeting', function() {
-            return 'Hello world!';
-        });
-    });
 });
+
+// Sample URL
+Route::group([
+    'domain' => env('APP_URL')], function() {
+        Route::get('team-members', [TeamMemberController::class, 'index']);
+    }
+);
