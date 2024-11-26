@@ -12,11 +12,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // $middleware->alias([
+        //     'check.role' => \App\Http\Middleware\CheckRole::class,
+        // ]);
         $middleware->alias([
             'check.role' => \App\Http\Middleware\CheckRole::class,
+            'cors' => \Illuminate\Http\Middleware\HandleCors::class, // Correctly added here
         ]);
 
-        $middleware->addGlovalMiddleware(\Illuminate\Http\Middleware\HandleCors::class);
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
