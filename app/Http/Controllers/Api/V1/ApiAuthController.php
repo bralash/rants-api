@@ -20,9 +20,9 @@ class ApiAuthController extends Controller {
      *     )
      * )
      * @OA\Post(
-     *     path="/api/v1/register",
+     *     path="/v1/register",
      *     summary="Register a new user",
-     *     description="This endpoint allows a user to register by providing their name, email, password, and role.",
+     *     description="This endpoint allows a user to register by providing their name, email, password, password confirmation, and role.",
      *     operationId="registerUser",
      *     tags={"Auth"},
      *     @OA\RequestBody(
@@ -138,7 +138,7 @@ class ApiAuthController extends Controller {
 
     /**
      * @OA\Post(
-     *     path="/api/v1/login",
+     *     path="/v1/login",
      *     summary="Login user",
      *     description="Authenticate a user and return a JWT token",
      *     operationId="loginUser",
@@ -229,7 +229,7 @@ class ApiAuthController extends Controller {
 
     /**
      * @OA\Post(
-     *     path="/api/v1/logout",
+     *     path="/v1/logout",
      *     summary="Logout user",
      *     description="Invalidate the user's token and log them out",
      *     operationId="logoutUser",
