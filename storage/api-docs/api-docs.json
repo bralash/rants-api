@@ -2,20 +2,20 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Rants and Confessions",
-        "description": "Documentation for Rants and Confessions",
+        "description": "Documentation for Rants and Confessions API",
         "contact": {
             "email": "emmanuelasaber@gmail.com"
         },
         "version": "1.0.0"
     },
     "paths": {
-        "/api/v1/register": {
+        "/v1/register": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Register a new user",
-                "description": "This endpoint allows a user to register by providing their name, email, password, and role.",
+                "description": "This endpoint allows a user to register by providing their name, email, password, password confirmation, and role.",
                 "operationId": "registerUser",
                 "requestBody": {
                     "required": true,
@@ -38,7 +38,7 @@
                                         "description": "Email address of the user",
                                         "type": "string",
                                         "format": "email",
-                                        "example": "emmanuelasaber@gmail.com"
+                                        "example": "example@gmail.com"
                                     },
                                     "password": {
                                         "description": "Password for the user account",
@@ -90,7 +90,7 @@
                                                 },
                                                 "email": {
                                                     "type": "string",
-                                                    "example": "emmanuelasaber@gmail.com"
+                                                    "example": "example@gmail.com"
                                                 },
                                                 "role": {
                                                     "type": "string",
@@ -140,7 +140,7 @@
                 }
             }
         },
-        "/api/v1/login": {
+        "/v1/login": {
             "post": {
                 "tags": [
                     "Auth"
@@ -162,7 +162,7 @@
                                         "description": "User's email address",
                                         "type": "string",
                                         "format": "email",
-                                        "example": "emmanuelasaber@gmail.com"
+                                        "example": "example@gmail.com"
                                     },
                                     "password": {
                                         "description": "User's password",
@@ -220,7 +220,7 @@
                 }
             }
         },
-        "/api/v1/logout": {
+        "/v1/logout": {
             "post": {
                 "tags": [
                     "Auth"
