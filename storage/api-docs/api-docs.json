@@ -497,6 +497,16 @@
             }
         }
     },
+    "components": {
+        "securitySchemes": {
+            "Bearer": {
+                "type": "apiKey",
+                "description": "Enter token in the format: `Bearer {token}`",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
     "tags": [
         {
             "name": "Auth",

@@ -228,37 +228,44 @@ class ApiAuthController extends Controller {
     }
 
     /**
-     * @OA\Post(
-     *     path="/v1/logout",
-     *     summary="Logout user",
-     *     description="Invalidate the user's token and log them out",
-     *     operationId="logoutUser",
-     *     tags={"Auth"},
-     *     security={{"bearerAuth":{}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Logout successful",
-     *         @OA\JsonContent(
-     *             @OA\Property(
-     *                 property="message",
-     *                 type="string",
-     *                 example="Successfully logged out"
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthenticated",
-     *         @OA\JsonContent(
-     *             @OA\Property(
-     *                 property="error",
-     *                 type="string",
-     *                 example="Token is missing or invalid"
-     *             )
-     *         )
-     *     )
-     * )
-     */
+    * @OA\SecurityScheme(
+    *     securityScheme="Bearer",
+    *     type="apiKey",
+    *     in="header",
+    *     name="Authorization",
+    *     description="Enter token in the format: `Bearer {token}`"
+    * )
+    * @OA\Post(
+    *     path="/v1/logout",
+    *     summary="Logout user",
+    *     description="Invalidate the user's token and log them out",
+    *     operationId="logoutUser",
+    *     tags={"Auth"},
+    *     security={{"bearerAuth":{}}},
+    *     @OA\Response(
+    *         response=200,
+    *         description="Logout successful",
+    *         @OA\JsonContent(
+    *             @OA\Property(
+    *                 property="message",
+    *                 type="string",
+    *                 example="Successfully logged out"
+    *             )
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=401,
+    *         description="Unauthenticated",
+    *         @OA\JsonContent(
+    *             @OA\Property(
+    *                 property="error",
+    *                 type="string",
+    *                 example="Token is missing or invalid"
+    *             )
+    *         )
+    *     )
+    * )
+    */
 
     public function logout(Request $request)
     {
