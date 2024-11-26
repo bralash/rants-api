@@ -14,7 +14,7 @@ class ApiAuthController extends Controller {
      * @OA\Info(
      *     title="Rants and Confessions",
      *     version="1.0.0",
-     *     description="Documentation for Rants and Confessions",
+     *     description="Documentation for Rants and Confessions API",
      *     @OA\Contact(
      *         email="emmanuelasaber@gmail.com",
      *     )
@@ -40,7 +40,7 @@ class ApiAuthController extends Controller {
      *                 type="string",
      *                 format="email",
      *                 description="Email address of the user",
-     *                 example="emmanuelasaber@gmail.com"
+     *                 example="example@gmail.com"
      *             ),
      *             @OA\Property(
      *                 property="password",
@@ -79,7 +79,7 @@ class ApiAuthController extends Controller {
      *                 type="object",
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="name", type="string", example="John Doe"),
-     *                 @OA\Property(property="email", type="string", example="emmanuelasaber@gmail.com"),
+     *                 @OA\Property(property="email", type="string", example="example@gmail.com"),
      *                 @OA\Property(property="role", type="string", example="user")
      *             )
      *         )
@@ -152,7 +152,7 @@ class ApiAuthController extends Controller {
      *                 type="string",
      *                 format="email",
      *                 description="User's email address",
-     *                 example="emmanuelasaber@gmail.com"
+     *                 example="example@gmail.com"
      *             ),
      *             @OA\Property(
      *                 property="password",
