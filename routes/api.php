@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\TeamMemberController;
 use App\Http\Controllers\Api\V1\ApiAuthController;
+use App\Http\Controllers\Api\V1\ConfessionController;
 
 /**
  * @OA\Info(
@@ -20,6 +21,9 @@ Route::prefix('v1')->group(function () {
     // Public routes
     Route::post('register', [ApiAuthController::class, 'register'])->middleware('throttle:public');
     Route::post('login', [ApiAuthController::class, 'login'])->middleware('throttle:login');
+
+    Route::get('confessions',[ConfessionController::class, 'index']);
+    Route::post('confessions',[ConfessionController::class, 'store']);
 
     // Protected routes
     Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
