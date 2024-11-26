@@ -53,6 +53,8 @@ Route::prefix('v1')->group(function () {
             Route::get('greetings', function() {
                 return 'Hello World';
             });
+            Route::get('confessions',[ConfessionController::class, 'index']);
+            Route::post('confessions',[ConfessionController::class, 'store']);
         }
     );    
 });
