@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Confession;
 use App\Http\Resources\ConfessionResource;
+use App\Models\Confession;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ConfessionController extends Controller
 {
@@ -17,22 +17,28 @@ class ConfessionController extends Controller
      *     description="Fetch all confessions. Optionally, you can filter by approval status using the `status` query parameter.",
      *     operationId="getConfessions",
      *     tags={"Confessions"},
+     *
      *     @OA\Parameter(
      *         name="status",
      *         in="query",
      *         required=false,
      *         description="Filter confessions by approval status. Values: 'approved', 'pending'.",
+     *
      *         @OA\Schema(
      *             type="string",
      *             enum={"approved", "pending"}
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="List of confessions retrieved successfully.",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(
+     *
      *                 @OA\Property(property="id", type="integer", example=1),
      *                 @OA\Property(property="message", type="string", example="I ate the last slice of pizza."),
      *                 @OA\Property(property="category", type="string", example="Funny"),
@@ -43,10 +49,13 @@ class ConfessionController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Invalid query parameter.",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="error",
      *                 type="string",
@@ -54,10 +63,13 @@ class ConfessionController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=500,
      *         description="Internal server error.",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="error",
      *                 type="string",
@@ -67,19 +79,18 @@ class ConfessionController extends Controller
      *     )
      * )
      */
-
-     public function index(Request $request): JsonResponse
-     {
+    public function index(Request $request): JsonResponse
+    {
         $query = Confession::query();
 
-        if($request->has('status')) {
+        if ($request->has('status')) {
             $status = $request->get('status');
 
-            if(in_array($status, ['approved', 'pending'])) {
+            if (in_array($status, ['approved', 'pending'])) {
                 $query->where('is_approved', $status === 'approved');
             } else {
                 return response()->json([
-                    'error' => 'Invalid status parameter. Use "approved" or "pending".'
+                    'error' => 'Invalid status parameter. Use "approved" or "pending".',
                 ], 400);
             }
         }
@@ -92,23 +103,25 @@ class ConfessionController extends Controller
             'meta' => [
                 'total' => $confessions->total(),
                 'page' => $confessions->currentPage(),
-                'last_page' => $confessions->lastPage()
-            ]
-            ]);
-     }
- 
- 
-     /**
+                'last_page' => $confessions->lastPage(),
+            ],
+        ]);
+    }
+
+    /**
      * @OA\Post(
      *     path="/v1/confessions",
      *     summary="Submit a new confession",
      *     description="Allows users to submit an anonymous confession.",
      *     operationId="storeConfession",
      *     tags={"Confessions"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"message"},
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -129,10 +142,13 @@ class ConfessionController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Confession submitted successfully.",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -151,10 +167,13 @@ class ConfessionController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Invalid input.",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="error",
      *                 type="string",
@@ -162,10 +181,13 @@ class ConfessionController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=500,
      *         description="Internal server error.",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(
      *                 property="error",
      *                 type="string",
@@ -175,9 +197,8 @@ class ConfessionController extends Controller
      *     )
      * )
      */
-
-     public function store(Request $request): JsonResponse
-     {
+    public function store(Request $request): JsonResponse
+    {
         $request->validate([
             'message' => 'required|string|max:1000',
             'catergory' => 'nullable|string|max:255',
@@ -193,38 +214,75 @@ class ConfessionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Confession added successfully',
-            'data' => $confession
+            'data' => [
+                'confession' => $confession
+            ]
         ]);
-     }
- 
-     /**
-      * Display the specified resource.
-      */
-     public function show(string $id): JsonResponse
-     {
-         //
-     }
- 
- 
-     /**
-      * Update the specified resource in storage.
-      */
-     public function update(Request $request, string $id): JsonResponse
-     {
-         //
-     }
- 
-     /**
-      * Remove the specified resource from storage.
-      */
-     public function destroy(string $id): JsonResponse
-     {
-         //
-     }
+    }
+
+    
+
+    /**
+     * @OA\Patch(
+     *     path="/v1/confessions/{id}",
+     *     summary="Toggle approval of a confession",
+     *     description="This endpoint allows you to approve or revoke the approval of a confession.",
+     *     operationId="updateConfession",
+     *     tags={"Confessions"},
+     *     security={{"Bearer": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the confession to toggle approval for",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Confession approval status toggled successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Confession approved successfully."),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="content", type="string", example="I feel guilty about not sharing."),
+     *                 @OA\Property(property="is_approved", type="boolean", example=true)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Confession not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Confession not found.")
+     *         )
+     *     )
+     * )
+     */
+    public function update(Request $request, $id): JsonResponse
+    {
+        $confession = Confession::findOrFail($id);
+
+        $confession->is_approved = !$confession->is_approved;
+        $confession->save();
+
+        $status = $confession->is_approved ? 'approved' : 'revoked';
+
+        return response()->json([
+            'status' => 'success',
+            'message' => `Confession {$status} successfully`,
+            'data' => [
+                'confession' => $confession
+            ]
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id): JsonResponse
+    {
+    }
 }
-
-
-
-
-
-

@@ -32,6 +32,7 @@ Route::prefix('v1')->group(function () {
         // Admin only routes
         Route::middleware('check.role:admin')->group(function () {
             Route::apiResource('team-members', TeamMemberController::class);
+            Route::apiResource('confessions', ConfessionController::class);
         });
 
         // Manager can view and update
