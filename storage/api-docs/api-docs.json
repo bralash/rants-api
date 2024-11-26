@@ -268,12 +268,243 @@
                     }
                 ]
             }
+        },
+        "/v1/confessions": {
+            "get": {
+                "tags": [
+                    "Confessions"
+                ],
+                "summary": "Retrieve a list of confessions",
+                "description": "Fetch all confessions. Optionally, you can filter by approval status using the `status` query parameter.",
+                "operationId": "getConfessions",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter confessions by approval status. Values: 'approved', 'pending'.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "approved",
+                                "pending"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of confessions retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "message": {
+                                                "type": "string",
+                                                "example": "I ate the last slice of pizza."
+                                            },
+                                            "category": {
+                                                "type": "string",
+                                                "example": "Funny"
+                                            },
+                                            "emotion": {
+                                                "type": "string",
+                                                "example": "Guilty"
+                                            },
+                                            "is_approved": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-11-26T10:00:00Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-11-26T12:00:00Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid query parameter.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid status parameter."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "An error occurred while retrieving confessions."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Confessions"
+                ],
+                "summary": "Submit a new confession",
+                "description": "Allows users to submit an anonymous confession.",
+                "operationId": "storeConfession",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "message"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "description": "The text of the confession.",
+                                        "type": "string",
+                                        "example": "I accidentally broke my mom's favorite vase."
+                                    },
+                                    "category": {
+                                        "description": "Optional category of the confession.",
+                                        "type": "string",
+                                        "example": "Funny"
+                                    },
+                                    "emotion": {
+                                        "description": "Optional emotion associated with the confession.",
+                                        "type": "string",
+                                        "example": "Guilty"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Confession submitted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Confession created successfully."
+                                        },
+                                        "confession": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "I accidentally broke my mom's favorite vase."
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "Funny"
+                                                },
+                                                "emotion": {
+                                                    "type": "string",
+                                                    "example": "Guilty"
+                                                },
+                                                "is_approved": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-26T10:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-26T10:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "The message field is required."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "An error occurred while saving the confession."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
         {
             "name": "Auth",
             "description": "Auth"
+        },
+        {
+            "name": "Confessions",
+            "description": "Confessions"
         }
     ]
 }
