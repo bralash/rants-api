@@ -186,7 +186,7 @@ class ConfessionController extends Controller
 
         $confession = Confession::create([
             'message' => $request->message,
-            'catergory' => $request->catergory,
+            'category' => $request->category,
             'emotion' => $request->emotion,
         ]);
 
