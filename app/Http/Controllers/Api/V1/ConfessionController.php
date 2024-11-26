@@ -17,7 +17,7 @@ class ConfessionController extends Controller
      *     description="Fetch all confessions. Optionally, you can filter by approval status using the `status` query parameter.",
      *     operationId="getConfessions",
      *     tags={"Confessions"},
-     *
+     *     security={{"Bearer": {}}},
      *     @OA\Parameter(
      *         name="status",
      *         in="query",
@@ -214,13 +214,54 @@ class ConfessionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Confession added successfully',
-            'data' => [
-                'confession' => $confession
-            ]
+            'data' => $confession
         ]);
     }
 
-    
+
+    /**
+     * @OA\Get(
+     *     path="/v1/confessions/{id}",
+     *     summary="Get a single confession",
+     *     description="This endpoint retrieves the details of a specific confession by its ID.",
+     *     operationId="getConfession",
+     *     tags={"Confessions"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the confession to retrieve",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Confession retrieved successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="content", type="string", example="I feel guilty about not sharing."),
+     *                 @OA\Property(property="is_approved", type="boolean", example=true)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Confession not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Confession not found.")
+     *         )
+     *     )
+     * )
+     */
+
+    public function show(Confession $confession): JsonResponse {
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => new ConfessionResource($confession)
+        ]);
+    }
 
     /**
      * @OA\Patch(
@@ -273,16 +314,51 @@ class ConfessionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => `Confession {$status} successfully`,
-            'data' => [
-                'confession' => $confession
-            ]
+            'data' => $confession
         ]);
     }
 
+    
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/v1/confessions/{id}",
+     *     summary="Delete a confession",
+     *     description="This endpoint deletes a specific confession by its ID.",
+     *     operationId="deleteConfession",
+     *     tags={"Confessions"},
+     *     security={{"Bearer": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the confession to delete",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Confession deleted successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Confession deleted successfully.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Confession not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Confession not found.")
+     *         )
+     *     )
+     * )
      */
-    public function destroy(string $id): JsonResponse
+
+    public function destroy(Confession $confession): JsonResponse
     {
+        $confession->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Confession removed successfully'
+        ]);
     }
 }

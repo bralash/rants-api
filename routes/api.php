@@ -24,6 +24,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('confessions',[ConfessionController::class, 'index']);
     Route::post('confessions',[ConfessionController::class, 'store']);
+    Route::get('confessions/{confession}',[ConfessionController::class, 'show']);
 
     // Protected routes
     Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
@@ -32,32 +33,15 @@ Route::prefix('v1')->group(function () {
         // Admin only routes
         Route::middleware('check.role:admin')->group(function () {
             Route::apiResource('team-members', TeamMemberController::class);
-            Route::apiResource('confessions', ConfessionController::class);
-        });
-
-        // Manager can view and update
-        Route::middleware('check.role:admin,manager')->group(function () {
-            Route::get('team-members', [TeamMemberController::class, 'index']);
-            Route::get('team-members/{teamMember}', [TeamMemberController::class, 'show']);
-            Route::put('team-members/{teamMember}', [TeamMemberController::class, 'update']);
+            // Route::apiResource('confessions', ConfessionController::class);
         });
 
         // Regular users can only view
-        Route::middleware('check.role:admin,manager,user')->group(function () {
+        Route::middleware('check.role:admin,user')->group(function () {
             Route::get('team-members', [TeamMemberController::class, 'index']);
             Route::get('team-members/{teamMember}', [TeamMemberController::class, 'show']);
         });
-    });
-
-    Route::group([
-        'domain' => env('APP_URL')], function() {
-            Route::get('greetings', function() {
-                return 'Hello World';
-            });
-            Route::get('confessions',[ConfessionController::class, 'index']);
-            Route::post('confessions',[ConfessionController::class, 'store']);
-        }
-    );    
+    });  
 });
 
 // Sample URL
