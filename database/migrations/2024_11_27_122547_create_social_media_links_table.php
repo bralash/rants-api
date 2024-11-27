@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_members', function (Blueprint $table) {
+        Schema::create('social_media_links', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('role');
-            $table->text('bio')->nullable();
-            $table->string('profile_image')->nullable();
+            $table->foreignId('team_member_id')->constrained()->onDelete('cascade');
+            $table->string('platform');
+            $table->string('url');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('team_members');
+        Schema::dropIfExists('social_media_links');
     }
 };

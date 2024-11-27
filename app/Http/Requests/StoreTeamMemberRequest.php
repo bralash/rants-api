@@ -26,6 +26,8 @@ class StoreTeamMemberRequest extends FormRequest
         return [
             'name' => 'required|string|max: 255',
             'role' => 'required|string|max: 255',
+            'bio' => 'nullable|string|max: 1000',
+            'profile_image' => 'nullable|string|max: 1000',
         ];
     }
 
