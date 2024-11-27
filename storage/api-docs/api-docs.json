@@ -920,7 +920,322 @@
                             }
                         }
                     }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/v1/team-members/{id}": {
+            "get": {
+                "tags": [
+                    "Team Members"
+                ],
+                "summary": "Get a single team member",
+                "description": "This endpoint retrieves details of a single team member by their ID.",
+                "operationId": "getTeamMember",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the team member to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Team member retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Clitoria Wettum"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "Host"
+                                                },
+                                                "bio": {
+                                                    "type": "string",
+                                                    "example": "An experienced podcast host."
+                                                },
+                                                "profile_image": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/image.jpg"
+                                                },
+                                                "social_media_links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "platform": {
+                                                                "type": "string",
+                                                                "example": "Instagram"
+                                                            },
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": "https://instagram.com/clitoria"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Team member not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Team member not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Team Members"
+                ],
+                "summary": "Update a team member's information",
+                "description": "This endpoint updates a team member's information, including their social media links.",
+                "operationId": "updateTeamMember",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the team member to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Clitoria Wettum"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "Host"
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "example": "An experienced podcast host."
+                                    },
+                                    "profile_image": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "social_media_links": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "platform": {
+                                                    "type": "string",
+                                                    "example": "Instagram"
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://instagram.com/clitoria"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Team member updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Team member updated successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Clitoria Wettum"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "Host"
+                                                },
+                                                "bio": {
+                                                    "type": "string",
+                                                    "example": "An experienced podcast host."
+                                                },
+                                                "profile_image": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/image.jpg"
+                                                },
+                                                "social_media_links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "platform": {
+                                                                "type": "string",
+                                                                "example": "Instagram"
+                                                            },
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": "https://instagram.com/clitoria"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Team member not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Team member not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Team Members"
+                ],
+                "summary": "Delete a team member and their associated social media links",
+                "description": "This endpoint deletes a team member along with their associated social media links.",
+                "operationId": "deleteTeamMember",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the team member to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Team member and their social media links deleted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Team member deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Team member not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Team member not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         }
     },

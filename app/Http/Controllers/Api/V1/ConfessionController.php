@@ -256,7 +256,6 @@ class ConfessionController extends Controller
      */
 
     public function show(Confession $confession): JsonResponse {
-        
         return response()->json([
             'status' => 'success',
             'data' => new ConfessionResource($confession)
