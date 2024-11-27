@@ -713,6 +713,215 @@
                     }
                 ]
             }
+        },
+        "/v1/team-members": {
+            "get": {
+                "tags": [
+                    "Team Members"
+                ],
+                "summary": "Get all team members",
+                "description": "This endpoint retrieves a paginated list of all team members.",
+                "operationId": "getTeamMembers",
+                "responses": {
+                    "200": {
+                        "description": "Team members retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Clitoria Wettum"
+                                                    },
+                                                    "role": {
+                                                        "type": "string",
+                                                        "example": "Host"
+                                                    },
+                                                    "bio": {
+                                                        "type": "string",
+                                                        "example": "An old caved woman of many values."
+                                                    },
+                                                    "profile_image": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "social_media_links": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "platform": {
+                                                                    "type": "string",
+                                                                    "example": "Instagram"
+                                                                },
+                                                                "url": {
+                                                                    "type": "string",
+                                                                    "example": "https://instagram.com/clitoria"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Team Members"
+                ],
+                "summary": "Create a new team member with social media links",
+                "description": "This endpoint creates a new team member and their associated social media links.",
+                "operationId": "createTeamMember",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Clitoria Wettum"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "Host"
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "example": "An experienced podcast host."
+                                    },
+                                    "profile_image": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "social_media_links": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "platform": {
+                                                    "type": "string",
+                                                    "example": "Instagram"
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://instagram.com/clitoria"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Team member created successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Clitoria Wettum"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "Host"
+                                                },
+                                                "bio": {
+                                                    "type": "string",
+                                                    "example": "An experienced podcast host."
+                                                },
+                                                "profile_image": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/image.jpg"
+                                                },
+                                                "social_media_links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "platform": {
+                                                                "type": "string",
+                                                                "example": "Instagram"
+                                                            },
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": "https://instagram.com/clitoria"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -733,6 +942,10 @@
         {
             "name": "Confessions",
             "description": "Confessions"
+        },
+        {
+            "name": "Team Members",
+            "description": "Team Members"
         }
     ]
 }
