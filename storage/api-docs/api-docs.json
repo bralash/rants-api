@@ -1309,6 +1309,274 @@
                 }
             }
         },
+        "/v1/episodes/{id}": {
+            "put": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Update an episode",
+                "description": "This endpoint updates an episode using the provided data.",
+                "operationId": "updateEpisode",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the episode to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Updated Episode Title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "An updated description of the episode."
+                                    },
+                                    "img_url": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/updated-image.jpg"
+                                    },
+                                    "audio_url": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/updated-audio.mp3"
+                                    },
+                                    "duration": {
+                                        "type": "string",
+                                        "example": "01:15:30"
+                                    },
+                                    "posted_on": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-12-01T12:00:00Z"
+                                    },
+                                    "season": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "episode": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "spotify_url": {
+                                        "type": "string",
+                                        "example": "https://spotify.com/updated-episode"
+                                    },
+                                    "apple_podcasts_url": {
+                                        "type": "string",
+                                        "example": "https://podcasts.apple.com/updated-episode"
+                                    },
+                                    "archive": {
+                                        "type": "string",
+                                        "example": "0"
+                                    },
+                                    "featured": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "updated-episode-title"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Episode updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Updated Episode Title"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "An updated description of the episode."
+                                                },
+                                                "img_url": {
+                                                    "type": "string",
+                                                    "format": "url",
+                                                    "example": "https://example.com/updated-image.jpg"
+                                                },
+                                                "audio_url": {
+                                                    "type": "string",
+                                                    "format": "url",
+                                                    "example": "https://example.com/updated-audio.mp3"
+                                                },
+                                                "duration": {
+                                                    "type": "string",
+                                                    "example": "01:15:30"
+                                                },
+                                                "posted_on": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                },
+                                                "season": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "episode": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "spotify_url": {
+                                                    "type": "string",
+                                                    "example": "https://spotify.com/updated-episode"
+                                                },
+                                                "apple_podcasts_url": {
+                                                    "type": "string",
+                                                    "example": "https://podcasts.apple.com/updated-episode"
+                                                },
+                                                "archive": {
+                                                    "type": "string",
+                                                    "example": "0"
+                                                },
+                                                "featured": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "updated-episode-title"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-29T00:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:15:30Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Episode not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Episode not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Delete an episode",
+                "description": "This endpoint deletes a specific episode by its ID.",
+                "operationId": "deleteEpisode",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the episode to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Episode deleted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Episode deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Episode not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Episode not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/v1/team-members": {
             "get": {
                 "tags": [

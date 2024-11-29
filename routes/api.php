@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\TeamMemberController;
 use App\Http\Controllers\Api\V1\ApiAuthController;
 use App\Http\Controllers\Api\V1\ConfessionController;
 use App\Http\Controllers\Api\V1\EpisodeController;
+use App\Models\Episode;
 
 /**
  * @OA\Info(
@@ -33,10 +34,16 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('team-members', TeamMemberController::class)->only(['index', 'show']);
 
     // Episodes
-    Route::get('episodes', [EpisodeController::class, 'index']);
-    Route::post('episodes', [EpisodeController::class, 'store']);
-    Route::get('episodes/season/{season}', [EpisodeController::class, 'getEpisodeBySeason']);
-    Route::get('episodes/search', [EpisodeController::class, 'searchEpisodes']);
+    // Route::get('episodes', [EpisodeController::class, 'index']);
+    // Route::post('episodes', [EpisodeController::class, 'store']);
+    // Route::get('episodes/season/{season}', [EpisodeController::class, 'getEpisodeBySeason']);
+    // Route::get('episodes/search', [EpisodeController::class, 'searchEpisodes']);
+    // Route::put('episodes/{id}', [EpisodeController::class, 'update']);
+    Route::apiResource('episodes', EpisodeController::class)->except(['store','delete','update']);
+    
+    
+
+
 
 
     // Protected routes
@@ -47,6 +54,7 @@ Route::prefix('v1')->group(function () {
         Route::middleware('check.role:admin')->group(function () {
             Route::apiResource('team-members', TeamMemberController::class)->except(['index', 'show']); 
             Route::apiResource('confessions', ConfessionController::class)->except(['store', 'show']); 
+            Route::apiResource('episodes', EpisodeController::class)->only(['store','delete','update']); 
         });
     });  
 });

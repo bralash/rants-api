@@ -302,4 +302,130 @@ class EpisodeController extends Controller
             'data' => new EpisodeResource($episode)
         ], 201);
     }
+
+
+
+    /**
+     * @OA\Put(
+     *     path="/v1/episodes/{id}",
+     *     summary="Update an episode",
+     *     description="This endpoint updates an episode using the provided data.",
+     *     operationId="updateEpisode",
+     *     tags={"Episodes"},
+     *     security={{"Bearer": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="The ID of the episode to update",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="title", type="string", example="Updated Episode Title"),
+     *             @OA\Property(property="description", type="string", example="An updated description of the episode."),
+     *             @OA\Property(property="img_url", type="string", format="url", example="https://example.com/updated-image.jpg"),
+     *             @OA\Property(property="audio_url", type="string", format="url", example="https://example.com/updated-audio.mp3"),
+     *             @OA\Property(property="duration", type="string", example="01:15:30"),
+     *             @OA\Property(property="posted_on", type="string", format="date-time", example="2024-12-01T12:00:00Z"),
+     *             @OA\Property(property="season", type="integer", example=2),
+     *             @OA\Property(property="episode", type="integer", example=5),
+     *             @OA\Property(property="spotify_url", type="string", example="https://spotify.com/updated-episode"),
+     *             @OA\Property(property="apple_podcasts_url", type="string", example="https://podcasts.apple.com/updated-episode"),
+     *             @OA\Property(property="archive", type="string", example="0"),
+     *             @OA\Property(property="featured", type="string", example="1"),
+     *             @OA\Property(property="slug", type="string", example="updated-episode-title")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Episode updated successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="title", type="string", example="Updated Episode Title"),
+     *                 @OA\Property(property="description", type="string", example="An updated description of the episode."),
+     *                 @OA\Property(property="img_url", type="string", format="url", example="https://example.com/updated-image.jpg"),
+     *                 @OA\Property(property="audio_url", type="string", format="url", example="https://example.com/updated-audio.mp3"),
+     *                 @OA\Property(property="duration", type="string", example="01:15:30"),
+     *                 @OA\Property(property="posted_on", type="string", format="date-time", example="2024-12-01T12:00:00Z"),
+     *                 @OA\Property(property="season", type="integer", example=2),
+     *                 @OA\Property(property="episode", type="integer", example=5),
+     *                 @OA\Property(property="spotify_url", type="string", example="https://spotify.com/updated-episode"),
+     *                 @OA\Property(property="apple_podcasts_url", type="string", example="https://podcasts.apple.com/updated-episode"),
+     *                 @OA\Property(property="archive", type="string", example="0"),
+     *                 @OA\Property(property="featured", type="string", example="1"),
+     *                 @OA\Property(property="slug", type="string", example="updated-episode-title"),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2024-11-29T00:00:00Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2024-12-01T12:15:30Z")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Episode not found.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Episode not found.")
+     *         )
+     *     )
+     * )
+     */
+
+    public function update(UpdateEpisodeRequest $request, Episode $episode): JsonResponse {
+        \Log::info('Authenticated User:', [auth()->user()]);
+        \Log::info('Episode:', [$episode]);
+        $episode->update($request->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Episode updated successfully.',
+            'data' => $episode
+        ], 200);
+    }
+
+
+
+    /**
+     * @OA\Delete(
+     *     path="/v1/episodes/{id}",
+     *     summary="Delete an episode",
+     *     description="This endpoint deletes a specific episode by its ID.",
+     *     operationId="deleteEpisode",
+     *     tags={"Episodes"},
+     *     security={{"Bearer": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the episode to delete",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Episode deleted successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Episode deleted successfully.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Episode not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Episode not found.")
+     *         )
+     *     )
+     * )
+     */
+    public function destroy(Episode $episode): JsonResponse {
+        $episode->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Episode was deleted successfully',
+        ]);
+    }
 }

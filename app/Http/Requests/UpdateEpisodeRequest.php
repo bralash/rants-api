@@ -11,7 +11,7 @@ class UpdateEpisodeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,9 +21,11 @@ class UpdateEpisodeRequest extends FormRequest
      */
     public function rules(): array
     {
+        $episode = $this->route('episode');
+
         return [
             'title' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string',
+            'description' => 'sometimes|string|max:1000',
             'img_url' => 'sometimes|url',
             'audio_url' => 'sometimes|url',
             'duration' => 'sometimes|string|max:20',
@@ -34,7 +36,7 @@ class UpdateEpisodeRequest extends FormRequest
             'apple_podcasts_url' => 'nullable|url',
             'archive' => 'sometimes|in:0,1',
             'featured' => 'sometimes|in:0,1',
-            'slug' => 'sometimes|string|max:255|unique:episodes,slug,' . $this->route('episode'), 
+            'slug' => 'required|string|unique:episodes,slug,' . $episode->id, 
         ];
     }
 }
