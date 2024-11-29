@@ -35,6 +35,9 @@ Route::prefix('v1')->group(function () {
     // Episodes
     Route::get('episodes', [EpisodeController::class, 'index']);
     Route::post('episodes', [EpisodeController::class, 'store']);
+    Route::get('episodes/season/{season}', [EpisodeController::class, 'getEpisodeBySeason']);
+    Route::get('episodes/search', [EpisodeController::class, 'searchEpisodes']);
+
 
     // Protected routes
     Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {

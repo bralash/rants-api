@@ -1036,6 +1036,284 @@
                 ]
             }
         },
+        "/v1/episodes/season/{season}": {
+            "get": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Get episodes by season number",
+                "description": "This endpoint retrieves a paginated list of episodes for a specific season.",
+                "operationId": "getEpisodesBySeason",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "The season number of the episodes",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Episodes retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "The Beginning of a Journey"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "An episode about starting something new."
+                                                    },
+                                                    "img_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "audio_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/audio.mp3"
+                                                    },
+                                                    "duration": {
+                                                        "type": "string",
+                                                        "example": "30:15"
+                                                    },
+                                                    "posted_on": {
+                                                        "type": "string",
+                                                        "example": "2024-11-25"
+                                                    },
+                                                    "season": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "episode": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "spotify_url": {
+                                                        "type": "string",
+                                                        "example": "https://anchor.fm/example"
+                                                    },
+                                                    "apple_podcasts_url": {
+                                                        "type": "string",
+                                                        "example": "https://apple.com/example"
+                                                    },
+                                                    "archive": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "featured": {
+                                                        "type": "string",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "the-beginning-of-a-journey"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-11-25T10:00:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-11-26T10:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 45
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/episodes/search": {
+            "get": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Search episodes by title or description",
+                "description": "This endpoint allows users to search for episodes based on a search term. It will search both the title and description of the episodes and return matching results.",
+                "operationId": "searchEpisodes",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "The search term to search for in the title or description of episodes.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "podcast"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Episodes retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "The Ultimate Podcast"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "An in-depth discussion about podcasting."
+                                                    },
+                                                    "img_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "audio_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/audio.mp3"
+                                                    },
+                                                    "duration": {
+                                                        "type": "string",
+                                                        "example": "45:00"
+                                                    },
+                                                    "posted_on": {
+                                                        "type": "string",
+                                                        "example": "2024-11-01"
+                                                    },
+                                                    "season": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "episode": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "anchor_podcast": {
+                                                        "type": "string",
+                                                        "example": "https://anchor.fm/example"
+                                                    },
+                                                    "apple_podcasts": {
+                                                        "type": "string",
+                                                        "example": "https://apple.com/example"
+                                                    },
+                                                    "google_podcasts": {
+                                                        "type": "string",
+                                                        "example": "https://google.com/example"
+                                                    },
+                                                    "archive": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "featured": {
+                                                        "type": "string",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "the-ultimate-podcast"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid search term.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The search term is invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/v1/team-members": {
             "get": {
                 "tags": [

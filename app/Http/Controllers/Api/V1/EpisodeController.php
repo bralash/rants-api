@@ -59,7 +59,7 @@ class EpisodeController extends Controller
      * )
      */
 
-    public function index() {
+    public function index(): JsonResponse {
         $episodes = Episode::paginate(15);
 
         return response()->json([
@@ -70,6 +70,156 @@ class EpisodeController extends Controller
                 'page' => $episodes->currentPage(),
                 'last_page' => $episodes->lastPage()
             ]
+        ]);
+    }
+
+
+    /**
+     * Get episodes by season number.
+     *
+     * @OA\Get(
+     *     path="/v1/episodes/season/{season}",
+     *     summary="Get episodes by season number",
+     *     description="This endpoint retrieves a paginated list of episodes for a specific season.",
+     *     operationId="getEpisodesBySeason",
+     *     tags={"Episodes"},
+     *     @OA\Parameter(
+     *         name="season",
+     *         in="path",
+     *         description="The season number of the episodes",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Episodes retrieved successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="data", type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="title", type="string", example="The Beginning of a Journey"),
+     *                     @OA\Property(property="description", type="string", example="An episode about starting something new."),
+     *                     @OA\Property(property="img_url", type="string", example="https://example.com/image.jpg"),
+     *                     @OA\Property(property="audio_url", type="string", example="https://example.com/audio.mp3"),
+     *                     @OA\Property(property="duration", type="string", example="30:15"),
+     *                     @OA\Property(property="posted_on", type="string", example="2024-11-25"),
+     *                     @OA\Property(property="season", type="integer", example=1),
+     *                     @OA\Property(property="episode", type="integer", example=5),
+     *                     @OA\Property(property="spotify_url", type="string", example="https://anchor.fm/example"),
+     *                     @OA\Property(property="apple_podcasts_url", type="string", example="https://apple.com/example"),
+     *                     @OA\Property(property="archive", type="string", example="0"),
+     *                     @OA\Property(property="featured", type="string", example="1"),
+     *                     @OA\Property(property="slug", type="string", example="the-beginning-of-a-journey"),
+     *                     @OA\Property(property="created_at", type="string", example="2024-11-25T10:00:00Z"),
+     *                     @OA\Property(property="updated_at", type="string", example="2024-11-26T10:00:00Z")
+     *                 )
+     *             ),
+     *             @OA\Property(property="meta", type="object",
+     *                 @OA\Property(property="total", type="integer", example=45),
+     *                 @OA\Property(property="page", type="integer", example=1),
+     *                 @OA\Property(property="last_page", type="integer", example=3)
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function getEpisodeBySeason(int $season): JsonResponse {
+        $episodes = Episode::where('season', $season)->paginate(15);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => EpisodeResource::collection($episodes),
+            'meta' => [
+                'total' => $episodes->total(),
+                'page' => $episodes->currentPage(),
+                'lastPage' => $episodes->lastPage()
+            ]
+        ]);
+    }
+
+
+    /**
+     * @OA\Get(
+     *     path="/v1/episodes/search",
+     *     summary="Search episodes by title or description",
+     *     description="This endpoint allows users to search for episodes based on a search term. It will search both the title and description of the episodes and return matching results.",
+     *     operationId="searchEpisodes",
+     *     tags={"Episodes"},
+     *     security={{"Bearer": {}}},
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="The search term to search for in the title or description of episodes.",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             example="podcast"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Episodes retrieved successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="data", type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="title", type="string", example="The Ultimate Podcast"),
+     *                     @OA\Property(property="description", type="string", example="An in-depth discussion about podcasting."),
+     *                     @OA\Property(property="img_url", type="string", example="https://example.com/image.jpg"),
+     *                     @OA\Property(property="audio_url", type="string", example="https://example.com/audio.mp3"),
+     *                     @OA\Property(property="duration", type="string", example="45:00"),
+     *                     @OA\Property(property="posted_on", type="string", example="2024-11-01"),
+     *                     @OA\Property(property="season", type="integer", example=1),
+     *                     @OA\Property(property="episode", type="integer", example=5),
+     *                     @OA\Property(property="anchor_podcast", type="string", example="https://anchor.fm/example"),
+     *                     @OA\Property(property="apple_podcasts", type="string", example="https://apple.com/example"),
+     *                     @OA\Property(property="google_podcasts", type="string", example="https://google.com/example"),
+     *                     @OA\Property(property="archive", type="string", example="0"),
+     *                     @OA\Property(property="featured", type="string", example="1"),
+     *                     @OA\Property(property="slug", type="string", example="the-ultimate-podcast")
+     *                 )
+     *             ),
+     *             @OA\Property(property="meta", type="object",
+     *                 @OA\Property(property="total", type="integer", example=10),
+     *                 @OA\Property(property="page", type="integer", example=1),
+     *                 @OA\Property(property="last_page", type="integer", example=2)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid search term.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="The search term is invalid.")
+     *         )
+     *     )
+     * )
+     */
+
+
+    public function searchEpisodes(Request $request): JsonResponse {
+        $request->validate([
+            'search' => 'required|string|max:255|min:3',
+        ]);
+
+        $searchTerm = $request->input('search');
+
+        $episodes = Episode::where('title', 'like', '%' . $searchTerm . '%')
+            ->orWhere('description', 'like', '%' . $searchTerm . '%')
+            ->distinct()
+            ->paginate(15);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => EpisodeResource::collection($episodes),
+            'meta' => [
+                'total' => $episodes->total(),
+                'page' => $episodes->currentPage(),
+                'last_page' => $episodes->lastPage()
+            ],
         ]);
     }
 
