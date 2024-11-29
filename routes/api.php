@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\TeamMemberController;
 use App\Http\Controllers\Api\V1\ApiAuthController;
 use App\Http\Controllers\Api\V1\ConfessionController;
+use App\Http\Controllers\Api\V1\EpisodeController;
 
 /**
  * @OA\Info(
@@ -30,6 +31,10 @@ Route::prefix('v1')->group(function () {
 
     // Team Members
     Route::apiResource('team-members', TeamMemberController::class)->only(['index', 'show']);
+
+    // Episodes
+    Route::get('episodes', [EpisodeController::class, 'index']);
+    Route::post('episodes', [EpisodeController::class, 'store']);
 
     // Protected routes
     Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {

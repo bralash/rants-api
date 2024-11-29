@@ -714,6 +714,328 @@
                 ]
             }
         },
+        "/v1/episodes": {
+            "get": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Get paginated episodes",
+                "description": "This endpoint retrieves a paginated list of all podcast episodes.",
+                "operationId": "getEpisodes",
+                "responses": {
+                    "200": {
+                        "description": "Episodes retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "The Beginning of a Journey"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "An episode about starting something new."
+                                                    },
+                                                    "img_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "audio_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/audio.mp3"
+                                                    },
+                                                    "duration": {
+                                                        "type": "string",
+                                                        "example": "30:15"
+                                                    },
+                                                    "posted_on": {
+                                                        "type": "string",
+                                                        "example": "2024-11-25"
+                                                    },
+                                                    "season": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "episode": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "spotify_url": {
+                                                        "type": "string",
+                                                        "example": "https://anchor.fm/example"
+                                                    },
+                                                    "apple_podcasts_url": {
+                                                        "type": "string",
+                                                        "example": "https://apple.com/example"
+                                                    },
+                                                    "archive": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "featured": {
+                                                        "type": "string",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "the-beginning-of-a-journey"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-11-25T10:00:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-11-26T10:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 45
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Create a new episode",
+                "description": "This endpoint creates a new episode. Only authenticated users can create episodes.",
+                "operationId": "storeEpisode",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "The Journey Begins"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "The first episode of the series where we explore..."
+                                    },
+                                    "img_url": {
+                                        "type": "string",
+                                        "example": "https://example.com/episode1.jpg"
+                                    },
+                                    "audio_url": {
+                                        "type": "string",
+                                        "example": "https://example.com/audio/episode1.mp3"
+                                    },
+                                    "duration": {
+                                        "type": "string",
+                                        "example": "00:45:30"
+                                    },
+                                    "posted_on": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-11-29T12:00:00Z"
+                                    },
+                                    "season": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "episode": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "spotify_url": {
+                                        "type": "string",
+                                        "example": "https://spotify.com/episode1"
+                                    },
+                                    "apple_podcasts_url": {
+                                        "type": "string",
+                                        "example": "https://apple.com/episode1"
+                                    },
+                                    "archive": {
+                                        "type": "string",
+                                        "example": "0"
+                                    },
+                                    "featured": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "the-journey-begins"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Episode created successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "The Journey Begins"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "The first episode of the series where we explore..."
+                                                },
+                                                "img_url": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/episode1.jpg"
+                                                },
+                                                "audio_url": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/audio/episode1.mp3"
+                                                },
+                                                "duration": {
+                                                    "type": "string",
+                                                    "example": "00:45:30"
+                                                },
+                                                "posted_on": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-29T12:00:00Z"
+                                                },
+                                                "season": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "episode": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "anchor_podcast": {
+                                                    "type": "string",
+                                                    "example": "Anchor FM"
+                                                },
+                                                "apple_podcasts": {
+                                                    "type": "string",
+                                                    "example": "https://apple.com/episode1"
+                                                },
+                                                "google_podcasts": {
+                                                    "type": "string",
+                                                    "example": "https://google.com/episode1"
+                                                },
+                                                "archive": {
+                                                    "type": "string",
+                                                    "example": "0"
+                                                },
+                                                "featured": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "the-journey-begins"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input or validation errors.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized, token is invalid or missing.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/v1/team-members": {
             "get": {
                 "tags": [
@@ -1257,6 +1579,10 @@
         {
             "name": "Confessions",
             "description": "Confessions"
+        },
+        {
+            "name": "Episodes",
+            "description": "Episodes"
         },
         {
             "name": "Team Members",
