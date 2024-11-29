@@ -146,7 +146,7 @@ class EpisodeController extends Controller
      *     description="This endpoint allows users to search for episodes based on a search term. It will search both the title and description of the episodes and return matching results.",
      *     operationId="searchEpisodes",
      *     tags={"Episodes"},
-     *     security={{"Bearer": {}}},
+     *     
      *     @OA\Parameter(
      *         name="search",
      *         in="query",
