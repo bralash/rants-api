@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\TeamMemberController;
 use App\Http\Controllers\Api\V1\ApiAuthController;
 use App\Http\Controllers\Api\V1\ConfessionController;
 use App\Http\Controllers\Api\V1\EpisodeController;
+use App\Http\Controllers\Api\V1\PlaylistController;
 use App\Models\Episode;
 
 /**
@@ -40,6 +41,7 @@ Route::prefix('v1')->group(function () {
     // Route::get('episodes/search', [EpisodeController::class, 'searchEpisodes']);
     // Route::put('episodes/{id}', [EpisodeController::class, 'update']);
     Route::apiResource('episodes', EpisodeController::class)->except(['store','delete','update']);
+    Route::apiResource('playlists', PlaylistController::class);
     
     
 

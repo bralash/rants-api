@@ -1577,6 +1577,197 @@
                 ]
             }
         },
+        "/v1/playlists": {
+            "get": {
+                "tags": [
+                    "Playlists"
+                ],
+                "summary": "Get all playlists",
+                "description": "This endpoint retrieves a paginated list of all playlists.",
+                "operationId": "getPlaylists",
+                "responses": {
+                    "200": {
+                        "description": "Playlists retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Playlist One"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "This is a sample playlist."
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-01T12:00:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-01T12:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/playlists/{id}": {
+            "get": {
+                "tags": [
+                    "Playlists"
+                ],
+                "summary": "Get a single playlist",
+                "description": "This endpoint retrieves a single playlist by its ID.",
+                "operationId": "getPlaylistById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the playlist",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Playlist retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Playlist One"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "This is a sample playlist."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                },
+                                                "episodes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 10
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "The Journey Begins"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "The first episode of the series."
+                                                            },
+                                                            "duration": {
+                                                                "type": "string",
+                                                                "example": "00:45:30"
+                                                            },
+                                                            "posted_on": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-12-01T12:00:00Z"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Playlist not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Playlist not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/team-members": {
             "get": {
                 "tags": [
@@ -2124,6 +2315,10 @@
         {
             "name": "Episodes",
             "description": "Episodes"
+        },
+        {
+            "name": "Playlists",
+            "description": "Playlists"
         },
         {
             "name": "Team Members",

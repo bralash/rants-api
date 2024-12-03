@@ -25,4 +25,8 @@ class Episode extends Model
         'featured',
         'slug'
     ];
+
+    public function playlists() {
+        return $this->belongsToMany(Playlist::class, 'playlist_episode')->withTimestamps();
+    }
 }
