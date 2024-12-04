@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Playlist;
 use App\Services\PlaylistService;
+use Illuminate\Http\JsonResponse;
 
 class PlaylistController extends Controller
 {
@@ -62,6 +63,46 @@ class PlaylistController extends Controller
         ]);
     }
 
+
+    /**
+     * @OA\Post(
+     *     path="/v1/playlists",
+     *     summary="Create a new playlist",
+     *     description="This endpoint allows users to create a new playlist.",
+     *     operationId="createPlaylist",
+     *     tags={"Playlists"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="My Playlist"),
+     *             @OA\Property(property="description", type="string", example="A playlist of my favorite episodes.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Playlist created successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="My Playlist"),
+     *                 @OA\Property(property="description", type="string", example="A playlist of my favorite episodes."),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2024-12-01T12:00:00Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2024-12-01T12:00:00Z")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation failed.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Validation error.")
+     *         )
+     *     )
+     * )
+     */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -79,6 +120,71 @@ class PlaylistController extends Controller
         ], 201);
     }
 
+
+
+    /**
+     * @OA\Post(
+     *     path="/v1/playlists/{id}/episodes",
+     *     summary="Add episodes to a playlist",
+     *     description="This endpoint adds one or more episodes to a playlist.",
+     *     operationId="addEpisodesToPlaylist",
+     *     tags={"Playlists"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="The ID of the playlist",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="episode_ids", type="array",
+     *                 @OA\Items(type="integer", example=5)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Episodes added to playlist successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Episodes added successfully."),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="playlist_id", type="integer", example=1),
+     *                 @OA\Property(property="added_episode_ids", type="array",
+     *                     @OA\Items(type="integer", example=5)
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Playlist or episode not found.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Playlist or episode not found.")
+     *         )
+     *     )
+     * )
+     */
+
+    public function addEpisodesToPlaylist(Request $request, Playlist $playlist): JsonResponse {
+        $validated = $request->validate([
+            'episode_ids' => 'required|array|min:1',
+            'episode_ids.*' => 'integer|exists:episodes,id',
+        ]);
+
+        $playlist->episodes()->syncWithoutDetaching($validated['episode_ids']);
+
+        $updatedPlaylist = $playlist->load('episodes');
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Episodes added to playlist successfully.',
+            'data' => $updatedPlaylist,
+        ],200);
+    }
 
 
     /**

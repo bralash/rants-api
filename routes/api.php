@@ -42,6 +42,8 @@ Route::prefix('v1')->group(function () {
     // Route::put('episodes/{id}', [EpisodeController::class, 'update']);
     Route::apiResource('episodes', EpisodeController::class)->except(['store','delete','update']);
     Route::apiResource('playlists', PlaylistController::class);
+    Route::post('/playlists/{playlist}/episodes', [PlaylistController::class, 'addEpisodesToPlaylist']);
+
     
     
 
