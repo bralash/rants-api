@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Playlist;
 use App\Services\PlaylistService;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\JsonResponse; 
 
 class PlaylistController extends Controller
 {
@@ -244,6 +244,53 @@ class PlaylistController extends Controller
     }
 
 
+
+    /**
+     * @OA\Put(
+     *     path="/v1/playlists/{id}",
+     *     summary="Update an existing playlist",
+     *     description="This endpoint updates the details of an existing playlist.",
+     *     operationId="updatePlaylist",
+     *     tags={"Playlists"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="The ID of the playlist to update",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="Updated Playlist Name"),
+     *             @OA\Property(property="description", type="string", example="An updated description for the playlist.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Playlist updated successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="Updated Playlist Name"),
+     *                 @OA\Property(property="description", type="string", example="An updated description for the playlist."),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2024-12-01T12:00:00Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2024-12-01T12:30:00Z")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Playlist not found.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Playlist not found.")
+     *         )
+     *     )
+     * )
+     */
+
     public function update(Request $request, Playlist $playlist)
     {
         $validated = $request->validate([
@@ -261,6 +308,39 @@ class PlaylistController extends Controller
         ]);
     }
 
+
+    /**
+     * @OA\Delete(
+     *     path="/v1/playlists/{id}",
+     *     summary="Delete a playlist",
+     *     description="This endpoint deletes a playlist by its ID.",
+     *     operationId="deletePlaylist",
+     *     tags={"Playlists"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="The ID of the playlist to delete",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Playlist deleted successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Playlist deleted successfully.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Playlist not found.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error"),
+     *             @OA\Property(property="message", type="string", example="Playlist not found.")
+     *         )
+     *     )
+     * )
+     */
 
     public function destroy(Playlist $playlist)
     {
