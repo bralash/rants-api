@@ -38,8 +38,8 @@ class EpisodeController extends Controller
      *                     @OA\Property(property="episode", type="integer", example=5),
      *                     @OA\Property(property="spotify_url", type="string", example="https://anchor.fm/example"),
      *                     @OA\Property(property="apple_podcasts_url", type="string", example="https://apple.com/example"),
-     *                     @OA\Property(property="archive", type="string", example="0"),
-     *                     @OA\Property(property="featured", type="string", example="1"),
+     *                     @OA\Property(property="archive", type="integer", example=0),
+     *                     @OA\Property(property="featured", type="integer", example=1),
      *                     @OA\Property(property="slug", type="string", example="the-beginning-of-a-journey"),
      *                     @OA\Property(property="created_at", type="string", example="2024-11-25T10:00:00Z"),
      *                     @OA\Property(property="updated_at", type="string", example="2024-11-26T10:00:00Z")
@@ -108,8 +108,8 @@ class EpisodeController extends Controller
      *                     @OA\Property(property="episode", type="integer", example=5),
      *                     @OA\Property(property="spotify_url", type="string", example="https://anchor.fm/example"),
      *                     @OA\Property(property="apple_podcasts_url", type="string", example="https://apple.com/example"),
-     *                     @OA\Property(property="archive", type="string", example="0"),
-     *                     @OA\Property(property="featured", type="string", example="1"),
+     *                     @OA\Property(property="archive", type="integer", example=0),
+     *                     @OA\Property(property="featured", type="integer", example=1),
      *                     @OA\Property(property="slug", type="string", example="the-beginning-of-a-journey"),
      *                     @OA\Property(property="created_at", type="string", example="2024-11-25T10:00:00Z"),
      *                     @OA\Property(property="updated_at", type="string", example="2024-11-26T10:00:00Z")
@@ -176,8 +176,8 @@ class EpisodeController extends Controller
      *                     @OA\Property(property="anchor_podcast", type="string", example="https://anchor.fm/example"),
      *                     @OA\Property(property="apple_podcasts", type="string", example="https://apple.com/example"),
      *                     @OA\Property(property="google_podcasts", type="string", example="https://google.com/example"),
-     *                     @OA\Property(property="archive", type="string", example="0"),
-     *                     @OA\Property(property="featured", type="string", example="1"),
+     *                     @OA\Property(property="archive", type="integer", example=0),
+     *                     @OA\Property(property="featured", type="integer", example=1),
      *                     @OA\Property(property="slug", type="string", example="the-ultimate-podcast")
      *                 )
      *             ),
@@ -246,8 +246,8 @@ class EpisodeController extends Controller
      *             @OA\Property(property="episode", type="integer", example=1),
      *             @OA\Property(property="spotify_url", type="string", example="https://spotify.com/episode1"),
      *             @OA\Property(property="apple_podcasts_url", type="string", example="https://apple.com/episode1"),
-     *             @OA\Property(property="archive", type="string", example="0"),
-     *             @OA\Property(property="featured", type="string", example="1"),
+     *             @OA\Property(property="archive", type="integer", example=0),
+     *             @OA\Property(property="featured", type="integer", example=1),
      *             @OA\Property(property="slug", type="string", example="the-journey-begins")
      *         )
      *     ),
@@ -269,8 +269,8 @@ class EpisodeController extends Controller
      *                 @OA\Property(property="anchor_podcast", type="string", example="Anchor FM"),
      *                 @OA\Property(property="apple_podcasts", type="string", example="https://apple.com/episode1"),
      *                 @OA\Property(property="google_podcasts", type="string", example="https://google.com/episode1"),
-     *                 @OA\Property(property="archive", type="string", example="0"),
-     *                 @OA\Property(property="featured", type="string", example="1"),
+     *                 @OA\Property(property="archive", type="integer", example=0),
+     *                 @OA\Property(property="featured", type="integer", example=1),
      *                 @OA\Property(property="slug", type="string", example="the-journey-begins")
      *             )
      *         )
@@ -333,8 +333,8 @@ class EpisodeController extends Controller
      *             @OA\Property(property="episode", type="integer", example=5),
      *             @OA\Property(property="spotify_url", type="string", example="https://spotify.com/updated-episode"),
      *             @OA\Property(property="apple_podcasts_url", type="string", example="https://podcasts.apple.com/updated-episode"),
-     *             @OA\Property(property="archive", type="string", example="0"),
-     *             @OA\Property(property="featured", type="string", example="1"),
+     *             @OA\Property(property="archive", type="integer", example=0),
+     *             @OA\Property(property="featured", type="integer", example=1),
      *             @OA\Property(property="slug", type="string", example="updated-episode-title")
      *         )
      *     ),
@@ -355,8 +355,8 @@ class EpisodeController extends Controller
      *                 @OA\Property(property="episode", type="integer", example=5),
      *                 @OA\Property(property="spotify_url", type="string", example="https://spotify.com/updated-episode"),
      *                 @OA\Property(property="apple_podcasts_url", type="string", example="https://podcasts.apple.com/updated-episode"),
-     *                 @OA\Property(property="archive", type="string", example="0"),
-     *                 @OA\Property(property="featured", type="string", example="1"),
+     *                 @OA\Property(property="archive", type="integer", example=0),
+     *                 @OA\Property(property="featured", type="integer", example=1),
      *                 @OA\Property(property="slug", type="string", example="updated-episode-title"),
      *                 @OA\Property(property="created_at", type="string", format="date-time", example="2024-11-29T00:00:00Z"),
      *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2024-12-01T12:15:30Z")

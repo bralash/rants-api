@@ -782,12 +782,12 @@
                                                         "example": "https://apple.com/example"
                                                     },
                                                     "archive": {
-                                                        "type": "string",
-                                                        "example": "0"
+                                                        "type": "integer",
+                                                        "example": 0
                                                     },
                                                     "featured": {
-                                                        "type": "string",
-                                                        "example": "1"
+                                                        "type": "integer",
+                                                        "example": 1
                                                     },
                                                     "slug": {
                                                         "type": "string",
@@ -888,12 +888,12 @@
                                         "example": "https://apple.com/episode1"
                                     },
                                     "archive": {
-                                        "type": "string",
-                                        "example": "0"
+                                        "type": "integer",
+                                        "example": 0
                                     },
                                     "featured": {
-                                        "type": "string",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "slug": {
                                         "type": "string",
@@ -968,12 +968,12 @@
                                                     "example": "https://google.com/episode1"
                                                 },
                                                 "archive": {
-                                                    "type": "string",
-                                                    "example": "0"
+                                                    "type": "integer",
+                                                    "example": 0
                                                 },
                                                 "featured": {
-                                                    "type": "string",
-                                                    "example": "1"
+                                                    "type": "integer",
+                                                    "example": 1
                                                 },
                                                 "slug": {
                                                     "type": "string",
@@ -1115,12 +1115,12 @@
                                                         "example": "https://apple.com/example"
                                                     },
                                                     "archive": {
-                                                        "type": "string",
-                                                        "example": "0"
+                                                        "type": "integer",
+                                                        "example": 0
                                                     },
                                                     "featured": {
-                                                        "type": "string",
-                                                        "example": "1"
+                                                        "type": "integer",
+                                                        "example": 1
                                                     },
                                                     "slug": {
                                                         "type": "string",
@@ -1248,12 +1248,12 @@
                                                         "example": "https://google.com/example"
                                                     },
                                                     "archive": {
-                                                        "type": "string",
-                                                        "example": "0"
+                                                        "type": "integer",
+                                                        "example": 0
                                                     },
                                                     "featured": {
-                                                        "type": "string",
-                                                        "example": "1"
+                                                        "type": "integer",
+                                                        "example": 1
                                                     },
                                                     "slug": {
                                                         "type": "string",
@@ -1379,12 +1379,12 @@
                                         "example": "https://podcasts.apple.com/updated-episode"
                                     },
                                     "archive": {
-                                        "type": "string",
-                                        "example": "0"
+                                        "type": "integer",
+                                        "example": 0
                                     },
                                     "featured": {
-                                        "type": "string",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "slug": {
                                         "type": "string",
@@ -1457,12 +1457,12 @@
                                                     "example": "https://podcasts.apple.com/updated-episode"
                                                 },
                                                 "archive": {
-                                                    "type": "string",
-                                                    "example": "0"
+                                                    "type": "integer",
+                                                    "example": 0
                                                 },
                                                 "featured": {
-                                                    "type": "string",
-                                                    "example": "1"
+                                                    "type": "integer",
+                                                    "example": 1
                                                 },
                                                 "slug": {
                                                     "type": "string",
