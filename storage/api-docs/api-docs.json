@@ -714,6 +714,1419 @@
                 ]
             }
         },
+        "/v1/episodes": {
+            "get": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Get paginated episodes",
+                "description": "This endpoint retrieves a paginated list of all podcast episodes.",
+                "operationId": "getEpisodes",
+                "responses": {
+                    "200": {
+                        "description": "Episodes retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "The Beginning of a Journey"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "An episode about starting something new."
+                                                    },
+                                                    "img_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "audio_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/audio.mp3"
+                                                    },
+                                                    "duration": {
+                                                        "type": "string",
+                                                        "example": "30:15"
+                                                    },
+                                                    "posted_on": {
+                                                        "type": "string",
+                                                        "example": "2024-11-25"
+                                                    },
+                                                    "season": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "episode": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "spotify_url": {
+                                                        "type": "string",
+                                                        "example": "https://anchor.fm/example"
+                                                    },
+                                                    "apple_podcasts_url": {
+                                                        "type": "string",
+                                                        "example": "https://apple.com/example"
+                                                    },
+                                                    "archive": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "featured": {
+                                                        "type": "string",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "the-beginning-of-a-journey"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-11-25T10:00:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-11-26T10:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 45
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Create a new episode",
+                "description": "This endpoint creates a new episode. Only authenticated users can create episodes.",
+                "operationId": "storeEpisode",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "The Journey Begins"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "The first episode of the series where we explore..."
+                                    },
+                                    "img_url": {
+                                        "type": "string",
+                                        "example": "https://example.com/episode1.jpg"
+                                    },
+                                    "audio_url": {
+                                        "type": "string",
+                                        "example": "https://example.com/audio/episode1.mp3"
+                                    },
+                                    "duration": {
+                                        "type": "string",
+                                        "example": "00:45:30"
+                                    },
+                                    "posted_on": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-11-29T12:00:00Z"
+                                    },
+                                    "season": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "episode": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "spotify_url": {
+                                        "type": "string",
+                                        "example": "https://spotify.com/episode1"
+                                    },
+                                    "apple_podcasts_url": {
+                                        "type": "string",
+                                        "example": "https://apple.com/episode1"
+                                    },
+                                    "archive": {
+                                        "type": "string",
+                                        "example": "0"
+                                    },
+                                    "featured": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "the-journey-begins"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Episode created successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "The Journey Begins"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "The first episode of the series where we explore..."
+                                                },
+                                                "img_url": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/episode1.jpg"
+                                                },
+                                                "audio_url": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/audio/episode1.mp3"
+                                                },
+                                                "duration": {
+                                                    "type": "string",
+                                                    "example": "00:45:30"
+                                                },
+                                                "posted_on": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-29T12:00:00Z"
+                                                },
+                                                "season": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "episode": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "anchor_podcast": {
+                                                    "type": "string",
+                                                    "example": "Anchor FM"
+                                                },
+                                                "apple_podcasts": {
+                                                    "type": "string",
+                                                    "example": "https://apple.com/episode1"
+                                                },
+                                                "google_podcasts": {
+                                                    "type": "string",
+                                                    "example": "https://google.com/episode1"
+                                                },
+                                                "archive": {
+                                                    "type": "string",
+                                                    "example": "0"
+                                                },
+                                                "featured": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "the-journey-begins"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input or validation errors.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized, token is invalid or missing.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/v1/episodes/season/{season}": {
+            "get": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Get episodes by season number",
+                "description": "This endpoint retrieves a paginated list of episodes for a specific season.",
+                "operationId": "getEpisodesBySeason",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "The season number of the episodes",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Episodes retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "The Beginning of a Journey"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "An episode about starting something new."
+                                                    },
+                                                    "img_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "audio_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/audio.mp3"
+                                                    },
+                                                    "duration": {
+                                                        "type": "string",
+                                                        "example": "30:15"
+                                                    },
+                                                    "posted_on": {
+                                                        "type": "string",
+                                                        "example": "2024-11-25"
+                                                    },
+                                                    "season": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "episode": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "spotify_url": {
+                                                        "type": "string",
+                                                        "example": "https://anchor.fm/example"
+                                                    },
+                                                    "apple_podcasts_url": {
+                                                        "type": "string",
+                                                        "example": "https://apple.com/example"
+                                                    },
+                                                    "archive": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "featured": {
+                                                        "type": "string",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "the-beginning-of-a-journey"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-11-25T10:00:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-11-26T10:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 45
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/episodes/search": {
+            "get": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Search episodes by title or description",
+                "description": "This endpoint allows users to search for episodes based on a search term. It will search both the title and description of the episodes and return matching results.",
+                "operationId": "searchEpisodes",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "The search term to search for in the title or description of episodes.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "podcast"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Episodes retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "The Ultimate Podcast"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "An in-depth discussion about podcasting."
+                                                    },
+                                                    "img_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "audio_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/audio.mp3"
+                                                    },
+                                                    "duration": {
+                                                        "type": "string",
+                                                        "example": "45:00"
+                                                    },
+                                                    "posted_on": {
+                                                        "type": "string",
+                                                        "example": "2024-11-01"
+                                                    },
+                                                    "season": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "episode": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "anchor_podcast": {
+                                                        "type": "string",
+                                                        "example": "https://anchor.fm/example"
+                                                    },
+                                                    "apple_podcasts": {
+                                                        "type": "string",
+                                                        "example": "https://apple.com/example"
+                                                    },
+                                                    "google_podcasts": {
+                                                        "type": "string",
+                                                        "example": "https://google.com/example"
+                                                    },
+                                                    "archive": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "featured": {
+                                                        "type": "string",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "the-ultimate-podcast"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid search term.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The search term is invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/episodes/{id}": {
+            "put": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Update an episode",
+                "description": "This endpoint updates an episode using the provided data.",
+                "operationId": "updateEpisode",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the episode to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Updated Episode Title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "An updated description of the episode."
+                                    },
+                                    "img_url": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/updated-image.jpg"
+                                    },
+                                    "audio_url": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/updated-audio.mp3"
+                                    },
+                                    "duration": {
+                                        "type": "string",
+                                        "example": "01:15:30"
+                                    },
+                                    "posted_on": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-12-01T12:00:00Z"
+                                    },
+                                    "season": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "episode": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "spotify_url": {
+                                        "type": "string",
+                                        "example": "https://spotify.com/updated-episode"
+                                    },
+                                    "apple_podcasts_url": {
+                                        "type": "string",
+                                        "example": "https://podcasts.apple.com/updated-episode"
+                                    },
+                                    "archive": {
+                                        "type": "string",
+                                        "example": "0"
+                                    },
+                                    "featured": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "updated-episode-title"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Episode updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Updated Episode Title"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "An updated description of the episode."
+                                                },
+                                                "img_url": {
+                                                    "type": "string",
+                                                    "format": "url",
+                                                    "example": "https://example.com/updated-image.jpg"
+                                                },
+                                                "audio_url": {
+                                                    "type": "string",
+                                                    "format": "url",
+                                                    "example": "https://example.com/updated-audio.mp3"
+                                                },
+                                                "duration": {
+                                                    "type": "string",
+                                                    "example": "01:15:30"
+                                                },
+                                                "posted_on": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                },
+                                                "season": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "episode": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "spotify_url": {
+                                                    "type": "string",
+                                                    "example": "https://spotify.com/updated-episode"
+                                                },
+                                                "apple_podcasts_url": {
+                                                    "type": "string",
+                                                    "example": "https://podcasts.apple.com/updated-episode"
+                                                },
+                                                "archive": {
+                                                    "type": "string",
+                                                    "example": "0"
+                                                },
+                                                "featured": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "updated-episode-title"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-11-29T00:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:15:30Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Episode not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Episode not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Episodes"
+                ],
+                "summary": "Delete an episode",
+                "description": "This endpoint deletes a specific episode by its ID.",
+                "operationId": "deleteEpisode",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the episode to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Episode deleted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Episode deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Episode not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Episode not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/v1/playlists": {
+            "get": {
+                "tags": [
+                    "Playlists"
+                ],
+                "summary": "Get all playlists",
+                "description": "This endpoint retrieves a paginated list of all playlists.",
+                "operationId": "getPlaylists",
+                "responses": {
+                    "200": {
+                        "description": "Playlists retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Playlist One"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "This is a sample playlist."
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-01T12:00:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-01T12:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Playlists"
+                ],
+                "summary": "Create a new playlist",
+                "description": "This endpoint allows users to create a new playlist.",
+                "operationId": "createPlaylist",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "My Playlist"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A playlist of my favorite episodes."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Playlist created successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "My Playlist"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "A playlist of my favorite episodes."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation error."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/playlists/{id}/episodes": {
+            "post": {
+                "tags": [
+                    "Playlists"
+                ],
+                "summary": "Add episodes to a playlist",
+                "description": "This endpoint adds one or more episodes to a playlist.",
+                "operationId": "addEpisodesToPlaylist",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the playlist",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "episode_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": 5
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Episodes added to playlist successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Episodes added successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "playlist_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "added_episode_ids": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Playlist or episode not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Playlist or episode not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/playlists/{id}": {
+            "get": {
+                "tags": [
+                    "Playlists"
+                ],
+                "summary": "Get a single playlist",
+                "description": "This endpoint retrieves a single playlist by its ID.",
+                "operationId": "getPlaylistById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the playlist",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Playlist retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Playlist One"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "This is a sample playlist."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                },
+                                                "episodes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 10
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "The Journey Begins"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "The first episode of the series."
+                                                            },
+                                                            "duration": {
+                                                                "type": "string",
+                                                                "example": "00:45:30"
+                                                            },
+                                                            "posted_on": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-12-01T12:00:00Z"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Playlist not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Playlist not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Playlists"
+                ],
+                "summary": "Update an existing playlist",
+                "description": "This endpoint updates the details of an existing playlist.",
+                "operationId": "updatePlaylist",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the playlist to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Updated Playlist Name"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "An updated description for the playlist."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Playlist updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Updated Playlist Name"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "An updated description for the playlist."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-01T12:30:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Playlist not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Playlist not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Playlists"
+                ],
+                "summary": "Delete a playlist",
+                "description": "This endpoint deletes a playlist by its ID.",
+                "operationId": "deletePlaylist",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the playlist to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Playlist deleted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Playlist deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Playlist not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Playlist not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/team-members": {
             "get": {
                 "tags": [
@@ -920,7 +2333,322 @@
                             }
                         }
                     }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/v1/team-members/{id}": {
+            "get": {
+                "tags": [
+                    "Team Members"
+                ],
+                "summary": "Get a single team member",
+                "description": "This endpoint retrieves details of a single team member by their ID.",
+                "operationId": "getTeamMember",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the team member to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Team member retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Clitoria Wettum"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "Host"
+                                                },
+                                                "bio": {
+                                                    "type": "string",
+                                                    "example": "An experienced podcast host."
+                                                },
+                                                "profile_image": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/image.jpg"
+                                                },
+                                                "social_media_links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "platform": {
+                                                                "type": "string",
+                                                                "example": "Instagram"
+                                                            },
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": "https://instagram.com/clitoria"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Team member not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Team member not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Team Members"
+                ],
+                "summary": "Update a team member's information",
+                "description": "This endpoint updates a team member's information, including their social media links.",
+                "operationId": "updateTeamMember",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the team member to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Clitoria Wettum"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "Host"
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "example": "An experienced podcast host."
+                                    },
+                                    "profile_image": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "social_media_links": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "platform": {
+                                                    "type": "string",
+                                                    "example": "Instagram"
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://instagram.com/clitoria"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Team member updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Team member updated successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Clitoria Wettum"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "Host"
+                                                },
+                                                "bio": {
+                                                    "type": "string",
+                                                    "example": "An experienced podcast host."
+                                                },
+                                                "profile_image": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/image.jpg"
+                                                },
+                                                "social_media_links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "platform": {
+                                                                "type": "string",
+                                                                "example": "Instagram"
+                                                            },
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": "https://instagram.com/clitoria"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Team member not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Team member not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Team Members"
+                ],
+                "summary": "Delete a team member and their associated social media links",
+                "description": "This endpoint deletes a team member along with their associated social media links.",
+                "operationId": "deleteTeamMember",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the team member to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Team member and their social media links deleted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Team member deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Team member not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Team member not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         }
     },
@@ -942,6 +2670,14 @@
         {
             "name": "Confessions",
             "description": "Confessions"
+        },
+        {
+            "name": "Episodes",
+            "description": "Episodes"
+        },
+        {
+            "name": "Playlists",
+            "description": "Playlists"
         },
         {
             "name": "Team Members",

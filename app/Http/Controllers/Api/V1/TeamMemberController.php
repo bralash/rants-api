@@ -77,6 +77,7 @@ class TeamMemberController extends Controller
      *     description="This endpoint creates a new team member and their associated social media links.",
      *     operationId="createTeamMember",
      *     tags={"Team Members"},
+     *     security={{"Bearer": {}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -115,7 +116,7 @@ class TeamMemberController extends Controller
      *     )
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -149,24 +150,152 @@ class TeamMemberController extends Controller
     }
 
 
+
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/v1/team-members/{id}",
+     *     summary="Get a single team member",
+     *     description="This endpoint retrieves details of a single team member by their ID.",
+     *     operationId="getTeamMember",
+     *     tags={"Team Members"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the team member to retrieve",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Team member retrieved successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="Clitoria Wettum"),
+     *                 @OA\Property(property="role", type="string", example="Host"),
+     *                 @OA\Property(property="bio", type="string", example="An experienced podcast host."),
+     *                 @OA\Property(property="profile_image", type="string", example="https://example.com/image.jpg"),
+     *                 @OA\Property(property="social_media_links", type="array",
+     *                     @OA\Items(
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="platform", type="string", example="Instagram"),
+     *                         @OA\Property(property="url", type="string", example="https://instagram.com/clitoria")
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Team member not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Team member not found.")
+     *         )
+     *     )
+     * )
      */
     public function show(TeamMember $teamMember): JsonResponse
     {
         return response()->json([
-            'status' => 'sucess',
-            'data' => new TeamMemberResource($teamMember->load('socialMediaLinks'))
+            'status' => 'success',
+            'data' => new TeamMemberResource($teamMember->load('socialMediaLinks')),
         ]);
     }
 
+    
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/v1/team-members/{id}",
+     *     summary="Update a team member's information",
+     *     description="This endpoint updates a team member's information, including their social media links.",
+     *     operationId="updateTeamMember",
+     *     tags={"Team Members"},
+     *     security={{"Bearer": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the team member to update",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="Clitoria Wettum"),
+     *             @OA\Property(property="role", type="string", example="Host"),
+     *             @OA\Property(property="bio", type="string", example="An experienced podcast host."),
+     *             @OA\Property(property="profile_image", type="string", format="url", example="https://example.com/image.jpg"),
+     *             @OA\Property(property="social_media_links", type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(property="platform", type="string", example="Instagram"),
+     *                     @OA\Property(property="url", type="string", example="https://instagram.com/clitoria")
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Team member updated successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Team member updated successfully"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="Clitoria Wettum"),
+     *                 @OA\Property(property="role", type="string", example="Host"),
+     *                 @OA\Property(property="bio", type="string", example="An experienced podcast host."),
+     *                 @OA\Property(property="profile_image", type="string", example="https://example.com/image.jpg"),
+     *                 @OA\Property(property="social_media_links", type="array",
+     *                     @OA\Items(
+     *                         @OA\Property(property="platform", type="string", example="Instagram"),
+     *                         @OA\Property(property="url", type="string", example="https://instagram.com/clitoria")
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Team member not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Team member not found.")
+     *         )
+     *     )
+     * )
      */
-    public function update(StoreTeamMemberRequest $request, TeamMember $teamMember): JsonResponse
+    public function update(Request $request, TeamMember $teamMember): JsonResponse
     {
-        $teamMember->update($request->validated());
+        // Validate incoming request data
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => 'required|string|max:255',
+            'bio' => 'nullable|string',
+            'profile_image' => 'nullable|url',
+            'social_media_links' => 'nullable|array',
+            'social_media_links.*.platform' => 'required_with:social_media_links|string|max:255',
+            'social_media_links.*.url' => 'required_with:social_media_links|url',
+        ]);
 
+        // Update team member details
+        $teamMember->update([
+            'name' => $validated['name'],
+            'role' => $validated['role'],
+            'bio' => $validated['bio'] ?? $teamMember->bio,  // Keep existing bio if not updated
+            'profile_image' => $validated['profile_image'] ?? $teamMember->profile_image,  // Keep existing image if not updated
+        ]);
+
+        // Update or create social media links
+        if (isset($validated['social_media_links'])) {
+            foreach ($validated['social_media_links'] as $socialMediaData) {
+                $teamMember->socialMediaLinks()->updateOrCreate(
+                    ['platform' => $socialMediaData['platform']],  // Find by platform name
+                    ['url' => $socialMediaData['url']]  // Update the URL if the platform exists
+                );
+            }
+        }
+
+        // Return success response with updated data
         return response()->json([
             'status' => 'success',
             'message' => 'Team member updated successfully',
@@ -174,8 +303,38 @@ class TeamMemberController extends Controller
         ]);
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/v1/team-members/{id}",
+     *     summary="Delete a team member and their associated social media links",
+     *     description="This endpoint deletes a team member along with their associated social media links.",
+     *     operationId="deleteTeamMember",
+     *     tags={"Team Members"},
+     *     security={{"Bearer": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the team member to update",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Team member and their social media links deleted successfully.",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Team member deleted successfully.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Team member not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Team member not found.")
+     *         )
+     *     )
+     * )
      */
     public function destroy(TeamMember $teamMember): JsonResponse
     {
